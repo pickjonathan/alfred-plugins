@@ -64,7 +64,7 @@ YAML="$HOME/.warp/launch_configurations/claude-resume.yaml"
 check "writes launch config" "[ -f '$YAML' ]"
 check "config has cwd"        "grep -q 'cwd: \"$CWD\"' '$YAML'"
 check "config has bypass flag" "grep -q -- '--dangerously-skip-permissions' '$YAML'"
-check "opens warp url"        "grep -q 'open warp://launch/claude-resume' '$LOG'"
+check "opens warp url"        "grep -q 'warp://launch/claude-resume' '$LOG'"
 teardown
 
 echo "resume.sh — warp (--no-bypass)"

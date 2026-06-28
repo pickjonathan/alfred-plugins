@@ -76,7 +76,9 @@ windows:
           commands:
             - exec: "$(yaml_esc "$resume_cmd")"
 EOF
-  open "warp://launch/$config_name"
+  # Route the deep link explicitly through Warp so it launches Warp if it is
+  # not running and reliably delivers the link when it is.
+  open -a Warp "warp://launch/$config_name"
 }
 
 launch_iterm() {
