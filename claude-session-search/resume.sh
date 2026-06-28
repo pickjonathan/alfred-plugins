@@ -9,6 +9,9 @@
 #   TERMINAL_APP : warp | iterm | terminal | ghostty   (default: warp)
 #   OPEN_MODE    : tab | window                         (default: tab)
 #   CLAUDE_FLAGS : extra flags appended to the claude command (default: empty)
+#
+# Note: the Script Filter and action objects use "with input as argv"
+# (scriptargtype=1 in info.plist) so the selected item's arg arrives as $1.
 
 set -euo pipefail
 

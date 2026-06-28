@@ -112,7 +112,7 @@
 				<key>script</key>
 				<string>/usr/bin/python3 search.py "$1"</string>
 				<key>scriptargtype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
@@ -141,7 +141,7 @@
 				<key>script</key>
 				<string>./resume.sh "$1"</string>
 				<key>scriptargtype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>type</key>
@@ -164,7 +164,7 @@
 				<key>script</key>
 				<string>./resume.sh --no-bypass "$1"</string>
 				<key>scriptargtype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>type</key>
@@ -187,7 +187,7 @@
 				<key>script</key>
 				<string>./action.sh edit-cwd "$1"</string>
 				<key>scriptargtype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>type</key>
@@ -210,7 +210,7 @@
 				<key>script</key>
 				<string>./action.sh reveal "$1"</string>
 				<key>scriptargtype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>type</key>
@@ -233,7 +233,7 @@
 				<key>script</key>
 				<string>./quicklook.sh "$1"</string>
 				<key>scriptargtype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>type</key>
@@ -256,7 +256,7 @@
 				<key>script</key>
 				<string>./action.sh copy-cmd "$1"</string>
 				<key>scriptargtype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>type</key>
