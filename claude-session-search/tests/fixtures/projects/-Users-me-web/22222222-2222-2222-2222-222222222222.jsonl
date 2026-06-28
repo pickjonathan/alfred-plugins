@@ -1,0 +1,3 @@
+{"type":"user","message":{"content":"<command-name>/clear</command-name>"},"cwd":"/Users/me/web","gitBranch":"main"}
+{"type":"user","message":{"content":[{"type":"text","text":"Add dark mode to the settings page"}]},"cwd":"/Users/me/web","gitBranch":"main","timestamp":"2026-06-21T09:00:00.000Z"}
+{"type":"assistant","message":{"content":[{"type":"text","text":"I'll add a theme toggle to settings."}]}}

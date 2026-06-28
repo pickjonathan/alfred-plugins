@@ -1,5 +1,7 @@
 # alfred-plugins
 
+[![CI](https://github.com/pickjonathan/alfred-plugins/actions/workflows/ci.yml/badge.svg)](https://github.com/pickjonathan/alfred-plugins/actions/workflows/ci.yml)
+
 A collection of [Alfred](https://www.alfredapp.com/) workflows.
 
 ## Workflows

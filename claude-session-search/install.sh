@@ -16,7 +16,7 @@ set -euo pipefail
 BUNDLE_ID="com.pickjonathan.claude-session-search"
 BUNDLE_NAME="Claude Session Search.alfredworkflow"
 HERE="$(cd "$(dirname "$0")" && pwd)"
-cd "$HERE"
+cd "$HERE" || exit 1
 
 # Files that make up the workflow (everything the bundle ships).
 FILES=(info.plist search.py resume.sh action.sh quicklook.sh transcript.py README.md icon.png)
@@ -39,9 +39,10 @@ find_workflows_root() {
 }
 
 find_installed_dir() {
-  local root="$1"
+  local root="$1" match
   [ -d "$root" ] || return 1
-  grep -rl "$BUNDLE_ID" "$root"/*/info.plist 2>/dev/null | head -1 | xargs -I{} dirname {}
+  match="$(grep -rl "$BUNDLE_ID" "$root"/*/info.plist 2>/dev/null | head -1)"
+  [ -n "$match" ] && dirname "$match"
 }
 
 case "${1:-}" in

@@ -25,7 +25,9 @@ import re
 import sys
 import time
 
-PROJECTS_DIR = os.path.expanduser("~/.claude/projects")
+PROJECTS_DIR = os.path.expanduser(
+    os.environ.get("CLAUDE_PROJECTS_DIR", "~/.claude/projects")
+)
 ARG_SEP = "|||"
 MAX_RESULTS = 200
 # How many lines to scan per file when hunting for the first real prompt / cwd.

@@ -1,5 +1,7 @@
 # Claude Session Search — Alfred Workflow
 
+[![CI](https://github.com/pickjonathan/alfred-plugins/actions/workflows/ci.yml/badge.svg)](https://github.com/pickjonathan/alfred-plugins/actions/workflows/ci.yml)
+
 Search through your Claude Code sessions by description (or full text) and
 resume the one you pick in your terminal — by default in **Warp** with
 permission checks bypassed (`--dangerously-skip-permissions`).
@@ -87,11 +89,82 @@ its bundle id, so it survives Alfred reassigning the folder):
 | `transcript.py` | Renders a session `.jsonl` to a readable HTML transcript.     |
 | `make_icon.py`  | Regenerates `icon.png` (the Claude-style sunburst mark).      |
 | `install.sh`    | Rebuilds the bundle and syncs source into the live workflow.   |
+| `run-tests.sh`  | Runs the Python + bash test suites.                            |
+| `tests/`        | `unittest` tests + bash script tests + JSONL fixtures.         |
 
-## How Warp resume works
+## Architecture
+
+```
+Alfred keyword "cs {query}"
+        │
+        ▼
+  search.py  ──reads──▶  ~/.claude/projects/*/*.jsonl
+        │  (emits Alfred Script Filter JSON; arg = "id|||cwd|||jsonl-path")
+        ▼
+  ┌─────────────── modifier-gated connections ───────────────┐
+  │  ↵   resume.sh "$arg"             → open terminal, resume │
+  │  ⌥   resume.sh --no-bypass "$arg" → resume, no bypass     │
+  │  ⌘   action.sh edit-cwd "$arg"    → open cwd in editor    │
+  │  ⌃   action.sh reveal "$arg"      → reveal .jsonl         │
+  │  ⇧   quicklook.sh "$arg"          → transcript.py → QL    │
+  │  fn  action.sh copy-cmd "$arg"    → pbcopy resume command │
+  └───────────────────────────────────────────────────────────┘
+```
+
+The `arg` passed to every action is `"<session-id>|||<cwd>|||<jsonl-path>"`.
+Configuration is read from workflow environment variables (see above).
+
+### How Warp resume works
 
 `resume.sh` writes `~/.warp/launch_configurations/claude-resume.yaml` with the
 session's `cwd` and an `exec` command, then runs `open "warp://launch/claude-resume"`.
+iTerm and Apple Terminal are driven via AppleScript; Ghostty via keystrokes.
+
+## Testing
+
+```sh
+./run-tests.sh             # Python unittest + bash script tests
+PYTHON=/usr/bin/python3 ./run-tests.sh   # pick a specific interpreter
+python3 -m unittest discover -s tests -v # Python tests only
+```
+
+- **Python tests** (`tests/test_search.py`, `tests/test_transcript.py`) cover the
+  description/cwd/branch extraction, full-text matching, Alfred-item shape, and
+  the HTML transcript renderer. They run against the JSONL fixtures in
+  `tests/fixtures/` and exercise `search.py` end-to-end by pointing
+  `CLAUDE_PROJECTS_DIR` at the fixtures.
+- **Bash tests** (`tests/test_scripts.sh`) mock `open` / `pbcopy` / `osascript`
+  on `PATH` and assert that `resume.sh` and `action.sh` produce the right Warp
+  launch config, AppleScript, clipboard contents, and `open` calls — so they run
+  on both macOS and Linux CI.
+
+CI (`.github/workflows/ci.yml`) runs ShellCheck, validates `info.plist`, runs the
+suite, and verifies the `.alfredworkflow` bundle contents on every push/PR.
+
+### Testing hooks
+
+`search.py` and `resume.sh` accept env overrides purely to enable testing:
+
+| Variable             | Used by      | Purpose                                          |
+| -------------------- | ------------ | ------------------------------------------------ |
+| `CLAUDE_PROJECTS_DIR`| `search.py`  | Point the scan at a different projects directory |
+| `OSASCRIPT`          | `resume.sh`  | Substitute the `osascript` binary (mockable)     |
+
+## Troubleshooting
+
+- **Nothing happens on Enter / `claude: command not found`** — `resume.sh`
+  resolves `~/.local/bin/claude` then `command -v claude`, and prepends
+  `~/.local/bin` to `PATH`. If Claude Code lives elsewhere, add its directory to
+  your login shell `PATH`.
+- **Warp opens but doesn't run the command** — ensure your Warp is recent enough
+  to support Launch Configurations (`warp://launch/…`). As a fallback, switch
+  `TERMINAL_APP` to `iterm` or `terminal`.
+- **Ghostty doesn't type the command** — the Ghostty path uses System Events
+  keystrokes; grant Alfred **Accessibility** access in System Settings →
+  Privacy & Security.
+- **Icon didn't update** — reopen Alfred Preferences; macOS caches workflow icons.
+- **Edits aren't reflected** — run `./install.sh` to sync source into the
+  installed workflow.
 
 ## Notes / limitations
 

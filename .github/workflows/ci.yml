@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test & lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: claude-session-search
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: ShellCheck
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq shellcheck
+          shellcheck resume.sh action.sh quicklook.sh install.sh run-tests.sh
+
+      - name: Validate info.plist
+        run: python3 -c "import plistlib; plistlib.load(open('info.plist','rb')); print('info.plist OK')"
+
+      - name: Run test suite
+        run: ./run-tests.sh
+
+  build:
+    name: Verify bundle
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: claude-session-search
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rebuild .alfredworkflow and check it matches the committed bundle
+        run: |
+          ./install.sh --package
+          # The bundle is a zip; compare the file list against the committed one.
+          unzip -l "Claude Session Search.alfredworkflow" | awk 'NR>3 {print $4}' | sort | grep -v '^$' > /tmp/fresh.txt
+          echo "Bundle contents:" && cat /tmp/fresh.txt
+          for f in info.plist search.py resume.sh action.sh quicklook.sh transcript.py README.md icon.png; do
+            grep -qx "$f" /tmp/fresh.txt || { echo "missing $f in bundle"; exit 1; }
+          done
+          echo "bundle OK"

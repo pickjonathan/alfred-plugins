@@ -26,9 +26,9 @@ if [ -z "$arg" ]; then
 fi
 
 # Split the 3-field argument.
-session_id="${arg%%${ARG_SEP}*}"
-rest="${arg#*${ARG_SEP}}"
-cwd="${rest%%${ARG_SEP}*}"
+session_id="${arg%%"${ARG_SEP}"*}"
+rest="${arg#*"${ARG_SEP}"}"
+cwd="${rest%%"${ARG_SEP}"*}"
 
 if [ -z "$cwd" ] || [ ! -d "$cwd" ]; then
   cwd="$HOME"
@@ -82,7 +82,7 @@ EOF
 launch_iterm() {
   # iTerm2's scripting application name is "iTerm".
   if [ "$OPEN_MODE" = "window" ]; then
-    /usr/bin/osascript <<EOF
+    "${OSASCRIPT:-osascript}" <<EOF
 tell application "iTerm"
   activate
   create window with default profile
@@ -90,7 +90,7 @@ tell application "iTerm"
 end tell
 EOF
   else
-    /usr/bin/osascript <<EOF
+    "${OSASCRIPT:-osascript}" <<EOF
 tell application "iTerm"
   activate
   if (count of windows) = 0 then
@@ -106,7 +106,7 @@ EOF
 
 launch_terminal() {
   # Apple Terminal: do script opens a new window; reuse front window for a tab.
-  /usr/bin/osascript <<EOF
+  "${OSASCRIPT:-osascript}" <<EOF
 tell application "Terminal"
   activate
   do script "$(osa_esc "$resume_cmd")"
@@ -118,7 +118,7 @@ launch_ghostty() {
   # Ghostty has limited scripting; drive it via System Events keystrokes.
   # Requires Accessibility permission for Alfred/osascript.
   open -a Ghostty || open -na Ghostty
-  /usr/bin/osascript <<EOF
+  "${OSASCRIPT:-osascript}" <<EOF
 tell application "Ghostty" to activate
 delay 0.5
 tell application "System Events"

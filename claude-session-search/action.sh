@@ -22,10 +22,10 @@ if [ -z "$verb" ] || [ -z "$arg" ]; then
   exit 1
 fi
 
-session_id="${arg%%${ARG_SEP}*}"
-rest="${arg#*${ARG_SEP}}"
-cwd="${rest%%${ARG_SEP}*}"
-jsonl="${rest#*${ARG_SEP}}"
+session_id="${arg%%"${ARG_SEP}"*}"
+rest="${arg#*"${ARG_SEP}"}"
+cwd="${rest%%"${ARG_SEP}"*}"
+jsonl="${rest#*"${ARG_SEP}"}"
 
 EDITOR_APP="${EDITOR_APP:-cursor}"
 

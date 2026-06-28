@@ -13,9 +13,9 @@ if [ -z "$arg" ]; then
   exit 1
 fi
 
-session_id="${arg%%${ARG_SEP}*}"
-rest="${arg#*${ARG_SEP}}"
-jsonl="${rest#*${ARG_SEP}}"
+session_id="${arg%%"${ARG_SEP}"*}"
+rest="${arg#*"${ARG_SEP}"}"
+jsonl="${rest#*"${ARG_SEP}"}"
 
 if [ ! -f "$jsonl" ]; then
   echo "quicklook.sh: transcript not found: $jsonl" >&2
