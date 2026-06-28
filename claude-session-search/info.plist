@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.pickjonathan.claude-session-search</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>27f5cfd4-ac1c-4679-a0e2-40b4afd398af</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>44f6b069-27be-463b-b886-2cd014db1aba</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>50880131-c2df-4eeb-938b-6b3313b79193</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
+				<key>modifiersubtext</key>
+				<string>Resume without bypassing permissions</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>4b4f8120-dcb9-4943-8e47-2f2884b4a666</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string>Open working directory in editor</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>184d8dbd-b10a-4ddb-8bdb-2673ca9e7e8c</string>
+				<key>modifiers</key>
+				<integer>262144</integer>
+				<key>modifiersubtext</key>
+				<string>Reveal transcript .jsonl in Finder</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>88c4d51e-b115-4d0b-9afa-68b47bc949f9</string>
+				<key>modifiers</key>
+				<integer>131072</integer>
+				<key>modifiersubtext</key>
+				<string>Quick Look the conversation</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>0038fff8-6c94-4cf0-b61b-0e786f7fa1ab</string>
+				<key>modifiers</key>
+				<integer>8388608</integer>
+				<key>modifiersubtext</key>
+				<string>Copy resume command</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>pickjonathan</string>
+	<key>description</key>
+	<string>Search Claude Code sessions by description and resume the selected one in your terminal.</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Claude Session Search</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>cs</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Searching Claude sessions…</string>
+				<key>script</key>
+				<string>/usr/bin/python3 search.py "$1"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>↵ resume · ⌥ no-bypass · ⌘ open dir · ⌃ reveal · ⇧ Quick Look · fn copy</string>
+				<key>title</key>
+				<string>Search Claude sessions</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>27f5cfd4-ac1c-4679-a0e2-40b4afd398af</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>./resume.sh "$1"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>44f6b069-27be-463b-b886-2cd014db1aba</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>./resume.sh --no-bypass "$1"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>50880131-c2df-4eeb-938b-6b3313b79193</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>./action.sh edit-cwd "$1"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>4b4f8120-dcb9-4943-8e47-2f2884b4a666</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>./action.sh reveal "$1"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>184d8dbd-b10a-4ddb-8bdb-2673ca9e7e8c</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>./quicklook.sh "$1"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>88c4d51e-b115-4d0b-9afa-68b47bc949f9</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>./action.sh copy-cmd "$1"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>0038fff8-6c94-4cf0-b61b-0e786f7fa1ab</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Search your Claude Code sessions and resume one in your terminal.
+
+Trigger Alfred and type:  cs   (optionally followed by search terms)
+
+Search matches the session description, working directory, git branch and id;
+if those don't match it also searches the full conversation body.
+
+Actions on the highlighted result:
+  ↵        Resume in terminal with --dangerously-skip-permissions
+  ⌥ ↵      Resume WITHOUT the bypass flag
+  ⌘ ↵      Open the session's working directory in your editor
+  ⌃ ↵      Reveal the session .jsonl transcript in Finder
+  ⇧ ↵      Quick Look the conversation
+  fn ↵     Copy the resume command to the clipboard
+
+Configure Workflow lets you choose the terminal (Warp / iTerm / Terminal /
+Ghostty), tab vs window, your editor, extra claude flags, and full-text search.
+
+Requirements: Claude Code CLI on PATH (or ~/.local/bin/claude); the chosen
+terminal app. Ghostty uses keystroke automation and needs Accessibility access.</string>
+	<key>uidata</key>
+	<dict>
+		<key>0038fff8-6c94-4cf0-b61b-0e786f7fa1ab</key>
+		<dict>
+			<key>xpos</key>
+			<integer>470</integer>
+			<key>ypos</key>
+			<integer>560</integer>
+		</dict>
+		<key>184d8dbd-b10a-4ddb-8bdb-2673ca9e7e8c</key>
+		<dict>
+			<key>xpos</key>
+			<integer>470</integer>
+			<key>ypos</key>
+			<integer>340</integer>
+		</dict>
+		<key>27f5cfd4-ac1c-4679-a0e2-40b4afd398af</key>
+		<dict>
+			<key>xpos</key>
+			<integer>120</integer>
+			<key>ypos</key>
+			<integer>290</integer>
+		</dict>
+		<key>44f6b069-27be-463b-b886-2cd014db1aba</key>
+		<dict>
+			<key>xpos</key>
+			<integer>470</integer>
+			<key>ypos</key>
+			<integer>120</integer>
+		</dict>
+		<key>4b4f8120-dcb9-4943-8e47-2f2884b4a666</key>
+		<dict>
+			<key>xpos</key>
+			<integer>470</integer>
+			<key>ypos</key>
+			<integer>230</integer>
+		</dict>
+		<key>50880131-c2df-4eeb-938b-6b3313b79193</key>
+		<dict>
+			<key>xpos</key>
+			<integer>470</integer>
+			<key>ypos</key>
+			<integer>10</integer>
+		</dict>
+		<key>88c4d51e-b115-4d0b-9afa-68b47bc949f9</key>
+		<dict>
+			<key>xpos</key>
+			<integer>470</integer>
+			<key>ypos</key>
+			<integer>450</integer>
+		</dict>
+	</dict>
+	<key>userconfigurationconfig</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>warp</string>
+				<key>pairs</key>
+				<array>
+					<array>
+						<string>Warp</string>
+						<string>warp</string>
+					</array>
+					<array>
+						<string>iTerm</string>
+						<string>iterm</string>
+					</array>
+					<array>
+						<string>Apple Terminal</string>
+						<string>terminal</string>
+					</array>
+					<array>
+						<string>Ghostty</string>
+						<string>ghostty</string>
+					</array>
+				</array>
+			</dict>
+			<key>description</key>
+			<string>Which terminal to open when resuming.</string>
+			<key>label</key>
+			<string>Terminal app</string>
+			<key>type</key>
+			<string>popupbutton</string>
+			<key>variable</key>
+			<string>TERMINAL_APP</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>tab</string>
+				<key>pairs</key>
+				<array>
+					<array>
+						<string>New tab</string>
+						<string>tab</string>
+					</array>
+					<array>
+						<string>New window</string>
+						<string>window</string>
+					</array>
+				</array>
+			</dict>
+			<key>description</key>
+			<string>Open the session in a new tab or window (iTerm only; Warp opens a window).</string>
+			<key>label</key>
+			<string>Open mode</string>
+			<key>type</key>
+			<string>popupbutton</string>
+			<key>variable</key>
+			<string>OPEN_MODE</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>cursor</string>
+				<key>placeholder</key>
+				<string>cursor</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>App used by ⌘ to open the working directory: cursor, code, finder, or an app name.</string>
+			<key>label</key>
+			<string>Editor</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>EDITOR_APP</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string>e.g. --model opus</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Extra flags appended to the claude resume command.</string>
+			<key>label</key>
+			<string>Extra claude flags</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>CLAUDE_FLAGS</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<true/>
+				<key>text</key>
+				<string>Also search full conversation text (slower)</string>
+			</dict>
+			<key>description</key>
+			<string>When on, queries that don't match metadata also search message bodies.</string>
+			<key>label</key>
+			<string>Full-text search</string>
+			<key>type</key>
+			<string>checkbox</string>
+			<key>variable</key>
+			<string>FULLTEXT</string>
+		</dict>
+	</array>
+	<key>variables</key>
+	<dict>
+		<key>CLAUDE_FLAGS</key>
+		<string></string>
+		<key>EDITOR_APP</key>
+		<string>cursor</string>
+		<key>FULLTEXT</key>
+		<string>1</string>
+		<key>OPEN_MODE</key>
+		<string>tab</string>
+		<key>TERMINAL_APP</key>
+		<string>warp</string>
+	</dict>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>1.1.0</string>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
